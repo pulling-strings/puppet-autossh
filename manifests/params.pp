@@ -27,7 +27,11 @@ class autossh::params {
       }
     }
     /^(Ubuntu)$/: {
-      $service = 'upstart'
+      if $::operatingsystemmajrelease == '15.04' {
+        $service = 'systemd'
+      } else {
+        $service = 'upstart'
+      }
       # FIXME: for some reason this module created config in /opt/ssh
       $configdir = '/opt/autossh'
     }

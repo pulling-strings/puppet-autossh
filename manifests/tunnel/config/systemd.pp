@@ -23,8 +23,18 @@ define autossh::tunnel::config::systemd (
   $ssh_config,
 ) {
 
+  case $::operatingsystem {
+    /^(RedHat|CentOS)$/: {
+      $systemctl = '/usr/bin/systemctl' 
+    }
+
+    /^(Ubuntu)$/: {
+      $systemctl = '/bin/systemctl' 
+    }
+  }
+
   exec { "${service}-systemd-daemon-reload":
-    command     => '/usr/bin/systemctl daemon-reload',
+    command     => "${systemctl} daemon-reload",
     refreshonly => true,
   }
 
