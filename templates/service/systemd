@@ -10,6 +10,7 @@ User=<%= @user %>
 # -N Just open the connection and do nothing (not interactive)
 # LOCALPORT:IP_ON_EXAMPLE_COM:PORT_ON_EXAMPLE_COM
 ExecStart=/usr/bin/autossh -M <%= @monitor_port %> -NF <%= @ssh_config %> -i <%= @ssh_id_file %> <%= @remote_user %>@<%= @remote_host %>
+Restart=on-failure
  
 [Install]
 WantedBy=multi-user.target
